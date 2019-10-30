@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<script src="/lib/angular-1.4.8.min.js"></script>
+<!--
+AngularJS fornece filtros para transformar dados:
+    CURRENCY    - formatar um número para um formato de moeda.
+    UPPERCASE   - Format uma string para maiúsculas.
+    LOWERCASE   - Format uma string para minúsculas.
+    DATE        - formatar uma data para um formato especificado.
+    NUMBER      - formatar um número para uma string.
+-->
+<body>
+
+    <div ng-app="myApp" ng-controller="personCtrl">
+        <p>The Name is {{ lastName | uppercase }}</p>
+        <p>The Lastname is {{ lastName | lowercase }}</p>
+        <p>The Date is {{ date | date: 'dd/MM/yyyy' }}</p>
+        <p>The Date with hour: {{ date | date:"dd/MM/yyyy HH:mm"}}</p>
+        <p>The Date complete name: {{ date | date: 'fullDate' }}</p>
+        <p>The Price: {{ price | currency }}</p>
+        <p>The Price cifra: {{ price | currency:"USD$"}}</p>
+        <p>The Price remove zero: {{ price | currency:"USD$":0}}</p>
+        <p>The Number: {{ number | number:0 }}</p>
+        <p>The Number: {{ number | number:2 }}</p>
+        <p>The Number: {{ number | number:3 }}</p>
+        <hr>
+        <h4>AngularJS Serviços</h4>
+        <p>The $interval service runs a function every specified millisecond.</p>
+        <p>The time is: <b>{{theTime}}</b></p>
+        <p>This header will change after two seconds: <b>{{myHeader}}</b></p>
+    </div>
+
+</body>
+</html>
+
+<script>
+    angular.module('myApp', []).controller('personCtrl', 
+        function($scope, $interval, $timeout) {
+            $scope.firstName = "John";
+            $scope.lastName = "Doe";
+            $scope.price = 58;
+            $scope.date = Date.now();
+            $scope.number = 123456;
+            $scope.theTime = new Date().toLocaleTimeString();
+            $scope.myHeader = "Oi fui declarado!";
+
+            $interval(function () {
+                $scope.theTime = new Date().toLocaleTimeString();
+            }, 1000);
+
+            $timeout(function () {
+                $scope.myHeader = "Foi rápido a mudança?";
+            }, 2000);
+        });
+</script>

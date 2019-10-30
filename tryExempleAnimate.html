@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<script src="/lib/angular-1.4.8.min.js"></script>
+<script src="/lib/angular-animate-1.4.8.js"></script>
+
+<style>
+    div {
+        transition: all linear 0.5s;
+        background-color: lightblue;
+        height: 100px;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .ng-hide {
+        height: 0;
+        width: 0;
+        background-color: transparent;
+        top:-200px;
+        left: 200px;
+    }
+</style>
+<!--
+    Além disso, durante a animação, o elemento HTML irá ter um conjunto de valores de classe, que irá ser removida quando a animação tenha terminado. Exemplo: o ng-hide directiva irá adicionar estes valores de classe:
+    ng-animate
+    ng-hide-animate
+    ng-hide-add (se o elemento será oculto)
+    ng-hide-remove (se o elemento será exibido)
+    ng-hide-add-active (se o elemento será oculto)
+    ng-hide-remove-active (se o elemento será exibido)
+-->
+
+<body ng-app="ngAnimate">
+    <h1>Hide the DIV: <input type="checkbox" ng-model="myCheck"></h1>
+    <div ng-hide="myCheck"></div>
+</body>
+</html>
+
+<!-- ______________SEGUNDA OPÇÃO______________ -->
+
+<body ng-app="myApp">
+    <h1>Hide the DIV: <input type="checkbox" ng-model="myCheck"></h1>
+    <div ng-hide="myCheck"></div>
+</body>
+</html>
+
+<script>
+    var app = angular.module('myApp', ['ngAnimate']);
+    
+</script>

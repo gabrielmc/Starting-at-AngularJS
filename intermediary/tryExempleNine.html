@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<script src="/lib/angular-1.4.8.min.js"></script>
+<body>
+
+    <!--
+    Os campos de entrada tem os seguintes estados:
+        $untouched - O campo ainda não foi tocado
+        $touched   - O campo foi tocado
+        $pristine  - O campo ainda não foi modificado
+        $dirty     - O campo foi modificado
+        $invalid   - O conteúdo do campo não é válido
+        $valid     - o conteúdo do campo é válido 
+            - > Eles são todas as propriedades do campo de entrada, e são ou true ou false .
+
+    Formas têm os seguintes estados:
+        $pristine  - Nenhum campo foi ainda modificado
+        $dirty     - Um ou mais foram modificados
+        $invalid   - o conteúdo do formulário não é válido
+        $valid     - o conteúdo do formulário é válido
+        $submitted - o formulário é enviado 
+            - > Eles são todas as propriedades do formulário, e são ou true ou false .
+    -->
+    <h2>Validation Example</h2>
+    <form ng-app="myApp" ng-controller="validateCtrl" name="myForm" novalidate>
+
+        <p>Username:<br><input type="text" name="user" ng-model="user" placeholder="John Doe" required>
+            <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+                <span ng-show="myForm.user.$error.required">Username is required.</span>
+            </span>
+        </p>
+        <p>Email:<br><input type="email" name="email" ng-model="email" placeholder="john.doe@gmail.com" required>
+            <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                <span ng-show="myForm.email.$error.required">Email is required.</span>
+                <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+            </span>
+        </p>
+        <p>
+            <input type="submit" 
+            ng-disabled="myForm.user.$dirty && myForm.user.$invalid || myForm.email.$dirty && myForm.email.$invalid">
+        </p>
+    </form>
+
+</body>
+</html>
+
+<script>
+    angular.module('myApp', []).controller('validateCtrl', function($scope) {
+        $scope.user = 'Nome';
+        $scope.email = 'teste@gmail.com';
+    });
+</script>

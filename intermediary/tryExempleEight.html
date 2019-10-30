@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<script src="/lib/angular-1.4.8.min.js"></script>
+<body>
+
+<!-- 
+ O método .get é um método de atalho do serviço $ http. Existem vários métodos de atalho:
+    .delete() .patch() .head()  .jsonp()
+    .get()    .post()  .put()
+-->
+    <div ng-app="myApp" ng-controller="studentController">
+        
+    </div>
+
+</body>
+</html>
+
+<script>
+var myApp = angular.module('myApp', []);
+myApp.controller('studentController', ['$scope', '$http', function($scope, $http) {
+    var urlDefaut = 'https://testeGabriel.typeCode.com/users';
+    var urlForPutAndEdit = 'https://testeGabriel.typeCode.com/users/';
+
+    //Getting Users List
+    $scope.getUsers = function() { //$http GET function
+    $http({
+        method: 'GET',
+        url: urlDefaut
+    }).then(function successCallback(response) {
+        $scope.users = response.data;
+    }, function errorCallback(response) {
+        alert("Erro. Tente Novamente!");
+    });
+    };
+
+    $scope.createUser = function() { //$http POST function
+    $http({
+        method: 'POST',
+        url: urlDefaut,
+        data: $scope.user
+    }).then(function successCallback(response) {
+        $scope.users.push(response.data);
+        alert("User has created Successfully");
+
+    }, function errorCallback(response) {
+        alert("Erro ao criar o usuário, tente novamente!");
+    });
+    };
+
+    $scope.updateUser = function() { //$http PUT function
+    $http({
+        method: 'PUT',
+        url: urlForPutAndEdit + $scope.user.id,
+        data: $scope.user
+    }).then(function successCallback(response) {
+        alert("User atualizado com sucesso");
+    }, function errorCallback(response) {
+        alert("Error. while updating user Try Again!");
+    });
+    };
+
+    $scope.deleteUser = function(user) { //$http DELETE function
+    $http({
+        method: 'DELETE',
+        url: urlForPutAndEdit + user.id
+    }).then(function successCallback(response) {
+        alert("User deletado com sucesso");
+        var index = $scope.users.indexOf(user);
+        $scope.users.splice(index, 1);
+    }, function errorCallback(response) {
+        alert("Erro equanto deletava o user tente mais tarde!");
+    });
+    };
+}]);
+</script>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<script src="/lib/angular-1.4.8.min.js"></script>
+<body>
+    <!--
+        Funções globais da API
+        angular.lowercase()    Converte uma string para minúsculas
+        angular.uppercase()    Converte uma string para maiúsculas
+        angular.isString()     Retorna true se a referência é uma string
+        angular.isNumber()     Retorna true se a referência é um número 
+    -->
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <p>{{ name }}</p>
+        <p>{{ lowName }}</p>
+        <p>{{ upperName }}</p>
+        <p>{{ stringBool }}</p>
+        <p>{{ numberBool }}</p>
+    </div>
+
+</body>
+</html>
+
+<script>
+    angular.module('myApp', []).controller('myCtrl', function($scope) {
+        $scope.name = "JOHN";
+        $scope.lowName = angular.lowercase($scope.name);
+        $scope.upperName = angular.uppercase($scope.lowName);
+        $scope.stringBool = angular.isString($scope.name);
+        $scope.numberBool = angular.isNumber($scope.lowName);
+    });
+</script>
